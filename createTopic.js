@@ -7,16 +7,19 @@ async function createTopic() {
     const prUrl = process.env.PR_URL;
 
     const response = await axios.post(
-      `https://poojithadigital25.try.clickhelp.co/api/v1/projects/sample-project/articles`,
+      "https://poojithadigital25.try.clickhelp.co/api/v1/projects/project-sample-project/articles",
       {
         title: `PR: ${prTitle}`,
         body: `
           <h1>Pull Request Created</h1>
 
-          <p><strong>Author:</strong> ${prAuthor}</p>
+          <p>
+            <strong>Author:</strong>
+            ${prAuthor}
+          </p>
 
           <p>
-            <strong>PR Link:</strong>
+            <strong>PR URL:</strong>
             <a href="${prUrl}">
               ${prUrl}
             </a>
@@ -36,8 +39,10 @@ async function createTopic() {
 
     console.log("Topic created successfully");
     console.log(response.data);
+
   } catch (error) {
     console.error(
+      "ERROR:",
       error.response?.data || error.message
     );
 
@@ -46,4 +51,3 @@ async function createTopic() {
 }
 
 createTopic();
-// hcdhds
