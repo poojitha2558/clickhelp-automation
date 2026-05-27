@@ -2,16 +2,32 @@ const axios = require("axios");
 
 async function createTopic() {
   try {
-    const prTitle = process.env.PR_TITLE;
-    const prAuthor = process.env.PR_AUTHOR;
-    const prUrl = process.env.PR_URL;
+    const username =
+      process.env.CLICKHELP_USERNAME;
+
+    const apiKey =
+      process.env.CLICKHELP_API_KEY;
+
+    const authToken = Buffer.from(
+      `${username}:${apiKey}`
+    ).toString("base64");
+
+    const prTitle =
+      process.env.PR_TITLE || "Test PR";
+
+    const prAuthor =
+      process.env.PR_AUTHOR || "Unknown";
+
+    const prUrl =
+      process.env.PR_URL || "No URL";
 
     const response = await axios.post(
       "https://poojithadigital25.try.clickhelp.co/api/v1/articles",
       {
         id: "api-docs-example",
 
-        projectId: "project-sample-project",
+        projectId:
+          "project-sample-project",
 
         title: `PR: ${prTitle}`,
 
@@ -32,12 +48,12 @@ async function createTopic() {
         `,
       },
       {
-        auth: {
-          username: process.env.CLICKHELP_USERNAME,
-          password: process.env.CLICKHELP_API_KEY,
-        },
         headers: {
-          "Content-Type": "application/json",
+          Authorization:
+            `Basic ${authToken}`,
+
+          "Content-Type":
+            "application/json",
         },
       }
     );
@@ -60,12 +76,3 @@ async function createTopic() {
 }
 
 createTopic();
-console.log(
-  "USERNAME EXISTS:",
-  !!process.env.CLICKHELP_USERNAME
-);
-
-console.log(
-  "API KEY EXISTS:",
-  !!process.env.CLICKHELP_API_KEY
-);
