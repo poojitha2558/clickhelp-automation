@@ -60,3 +60,12 @@ async function createTopic() {
 }
 
 createTopic();
+console.log(
+  "USERNAME EXISTS:",
+  !!process.env.CLICKHELP_USERNAME
+);
+
+console.log(
+  "API KEY EXISTS:",
+  !!process.env.CLICKHELP_API_KEY
+);
