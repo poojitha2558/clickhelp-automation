@@ -7,10 +7,11 @@ async function createTopic() {
     const prUrl = process.env.PR_URL;
 
     const response = await axios.post(
-      "https://poojithadigital25.try.clickhelp.co/api/v1/projects/project-sample-project/articles",
+      "https://poojithadigital25.try.clickhelp.co/api/v1/articles",
       {
-        tocNodeId:
-          "c6d575f9-f0d8-4ab3-ae05-d8592eb1f50d",
+        id: "api-docs-example",
+
+        projectId: "project-sample-project",
 
         title: `PR: ${prTitle}`,
 
@@ -47,7 +48,11 @@ async function createTopic() {
   } catch (error) {
     console.error(
       "ERROR:",
-      error.response?.data || error.message
+      JSON.stringify(
+        error.response?.data,
+        null,
+        2
+      ) || error.message
     );
 
     process.exit(1);
