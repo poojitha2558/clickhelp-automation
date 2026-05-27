@@ -51,3 +51,5 @@ async function createTopic() {
 }
 
 createTopic();
+//This section was automatically generated from swagger.json provided by the Swagger Petstore example.
+
