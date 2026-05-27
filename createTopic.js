@@ -2,8 +2,11 @@ const axios = require("axios");
 
 async function createTopic() {
   try {
-    const username = process.env.CLICKHELP_USERNAME;
-    const apiKey = process.env.CLICKHELP_API_KEY;
+    const username =
+      process.env.CLICKHELP_USERNAME;
+
+    const apiKey =
+      process.env.CLICKHELP_API_KEY;
 
     const authToken = Buffer.from(
       `${username}:${apiKey}`
@@ -18,10 +21,14 @@ async function createTopic() {
     const prUrl =
       process.env.PR_URL || "No URL";
 
+    // Unique topic id
+    const topicId =
+      `pr-${Date.now()}`;
+
     const response = await axios.post(
       "https://poojithadigital25.try.clickhelp.co/api/v1/projects/project-sample-project/articles",
       {
-        id: "api-docs-example",
+        id: topicId,
 
         tocNodeId:
           "c6d575f9-f0d8-4ab3-ae05-d8592eb1f50d",
