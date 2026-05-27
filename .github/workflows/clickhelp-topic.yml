@@ -1,0 +1,32 @@
+name: Create ClickHelp Topic
+
+on:
+  pull_request:
+    types: [opened]
+
+jobs:
+  create-topic:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install Dependencies
+        run: npm install
+
+      - name: Create ClickHelp Topic
+        env:
+          CLICKHELP_USERNAME: ${{ secrets.CLICKHELP_USERNAME }}
+          CLICKHELP_API_KEY: ${{ secrets.CLICKHELP_API_KEY }}
+
+          PR_TITLE: ${{ github.event.pull_request.title }}
+          PR_AUTHOR: ${{ github.event.pull_request.user.login }}
+          PR_URL: ${{ github.event.pull_request.html_url }}
+
+        run: node createTopic.js
