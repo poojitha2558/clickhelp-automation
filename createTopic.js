@@ -1,9 +1,9 @@
 const axios = require("axios");
 
-async function debugProject() {
+async function getArticles() {
   try {
     const response = await axios.get(
-      "https://poojithadigital25.try.clickhelp.co/api/v1/projects",
+      "https://poojithadigital25.try.clickhelp.co/api/v1/projects/project-sample-project/articles",
       {
         auth: {
           username: process.env.CLICKHELP_USERNAME,
@@ -20,8 +20,9 @@ async function debugProject() {
       "ERROR:",
       error.response?.data || error.message
     );
+
     process.exit(1);
   }
 }
 
-debugProject();
+getArticles();
