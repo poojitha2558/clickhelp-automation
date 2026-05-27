@@ -1,6 +1,6 @@
 const axios = require("axios");
 
-async function testEndpoint() {
+async function createTopic() {
   try {
     const username =
       process.env.CLICKHELP_USERNAME;
@@ -12,25 +12,67 @@ async function testEndpoint() {
       `${username}:${apiKey}`
     ).toString("base64");
 
-    const response = await axios.options(
+    const prTitle =
+      process.env.PR_TITLE || "Test PR";
+
+    const prAuthor =
+      process.env.PR_AUTHOR || "Unknown";
+
+    const prUrl =
+      process.env.PR_URL || "No URL";
+
+    const response = await axios.post(
       "https://poojithadigital25.try.clickhelp.co/api/v1/projects/project-sample-project/articles",
+      {
+        title: `PR: ${prTitle}`,
+
+        body: `
+          <h1>Pull Request Created</h1>
+
+          <p>
+            <strong>Author:</strong>
+            ${prAuthor}
+          </p>
+
+          <p>
+            <strong>PR Link:</strong>
+            <a href="${prUrl}">
+              ${prUrl}
+            </a>
+          </p>
+        `,
+
+        tocNodeId:
+          "c6d575f9-f0d8-4ab3-ae05-d8592eb1f50d",
+      },
       {
         headers: {
           Authorization:
             `Basic ${authToken}`,
+          "Content-Type":
+            "application/json",
         },
       }
     );
 
-    console.log(response.headers);
+    console.log(
+      "TOPIC CREATED SUCCESSFULLY"
+    );
+
+    console.log(response.data);
+
   } catch (error) {
     console.error(
-      error.response?.data ||
-      error.message
+      "ERROR:",
+      JSON.stringify(
+        error.response?.data,
+        null,
+        2
+      ) || error.message
     );
 
     process.exit(1);
   }
 }
 
-testEndpoint();
+createTopic();
