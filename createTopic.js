@@ -25,4 +25,4 @@ async function getArticles() {
   }
 }
 
-getArticles();
+getArticles();//iushfe
